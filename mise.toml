@@ -1,0 +1,52 @@
+[tools]
+gitleaks = "v8.18.4"
+"go:github.com/google/addlicense" = "v1.2.0"
+trivy = "v0.74.0"
+helm = "v3.14.0"
+actionlint = "latest"
+hadolint = "2.15.1"
+shellcheck = "latest"
+zizmor = "latest"
+
+[tasks.install]
+description = "Install tools, hook up hooks, and prepare environment"
+run = """
+prek install
+"""
+
+[tasks.build]
+description = "Build the application"
+run = """
+docker buildx build --platform linux/amd64 -t ghcr.io/joeckr/oci-modified:test . --load
+"""
+
+[tasks.compose]
+description = "Run Docker Compose"
+run = """
+docker compose up -d --build
+"""
+
+[tasks.down]
+description = "Stop Docker Compose"
+run = """
+docker compose down
+"""
+
+[tasks.prek]
+description = "Run pre-commit hooks"
+run = """
+prek run --all-files
+"""
+
+[tasks.trivy-fs]
+description = "Run Trivy on the file system"
+run = """
+trivy fs .
+"""
+
+[tasks.trivy-image]
+description = "Run Trivy on the Docker image"
+depends = ["build"]
+run = """
+trivy image ghcr.io/joeckr/oci-modified:test
+"""

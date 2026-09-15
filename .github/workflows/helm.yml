@@ -1,0 +1,16 @@
+name: Publish Helm Chart
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  workflow_dispatch:
+
+jobs:
+  helm:
+    permissions:
+      contents: read
+      packages: write
+    uses: joeckr/ci-templates/.github/workflows/push-helm-ghcr.yml@d9f1db3885add93d613b069e944f3fd5a4a26281 # v1.1.1
+    with:
+      charts-dir: 'chart'

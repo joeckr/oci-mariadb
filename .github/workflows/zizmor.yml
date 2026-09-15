@@ -1,0 +1,17 @@
+name: Zizmor
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  zizmor:
+    permissions:
+      contents: read
+      security-events: write # required to upload SARIF results to GitHub Advanced Security
+    uses: joeckr/ci-templates/.github/workflows/zizmor.yml@c08d40f0bf0cd80de6b2f1fa2f018f944265b807 # v1.8.0

@@ -1,0 +1,18 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+
+jobs:
+  matrix-build:
+    uses: joeckr/ci-templates/.github/workflows/build-oci-modified.yml@bb760f0804a3d0a7745752153807140a10f15fad # v1.7.0
+    with:
+      image: "mariadb"

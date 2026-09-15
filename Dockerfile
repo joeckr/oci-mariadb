@@ -2,7 +2,7 @@ ARG VERSION=12
 ARG REGISTRY=docker.io/library
 FROM $REGISTRY/mariadb:$VERSION-ubi
 
-USER root
+USER 0
 
 ENV MARIADB_DATA_DIR=/var/lib/mysql \
     MARIADB_RUN_DIR=/run/mariadb \
