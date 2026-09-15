@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    uses: joeckr/ci-templates/.github/workflows/semantic.yml@48916bb3c57520fe2d7b179ac228b29b0d1c83cb # v1.3.0
+
+  matrix-build:
+    needs: [release]
+    if: needs.release.outputs.released == 'true' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    uses: joeckr/ci-templates/.github/workflows/build-oci-modified.yml@bb760f0804a3d0a7745752153807140a10f15fad # v1.7.0
+    with:
+      image: "mariadb"
+
+  helm:
+    needs: [release]
+    if: needs.release.outputs.released == 'true' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: read
+      packages: write
+    uses: joeckr/ci-templates/.github/workflows/push-helm-ghcr.yml@d9f1db3885add93d613b069e944f3fd5a4a26281 # v1.1.1
+    with:
+      charts-dir: 'chart'
