@@ -15,7 +15,7 @@ A hardened, rootless MariaDB container image and Helm chart designed for **Red H
 - **Multi-Version Matrix Builds**: Automated GitHub Actions matrix builds producing multi-arch (`linux/amd64`, `linux/arm64`) images for multiple major MariaDB releases defined in [`versions.json`](file:///Users/josephking/Code/oci/oci-mariadb/versions.json).
 - **Production Helm Chart**: Fully configurable Helm chart under [`chart/`](file:///Users/josephking/Code/oci/oci-mariadb/chart) with persistent storage (PVC), custom environment variables, and schema initialization support.
 - **Schema Initialization**: Automatically bootstrap database schemas on first startup by mounting SQL scripts into `/docker-entrypoint-initdb.d/`.
-- **Developer Experience**: Integrated with [`mise`](https://mise.jdx.dev/) and [`prek`](https://github.com/jdx/prek) for one-command environment setup, linting, security audits, and container orchestration.
+- **Developer Experience**: Integrated with [`mise`](https://mise.jdx.dev/) and [`hk`](https://github.com/jdx/hk) for one-command environment setup, linting, security audits, and container orchestration.
 
 ---
 
@@ -142,7 +142,7 @@ This image resolves this by:
 
 ## Development & Maintenance
 
-This repository utilizes [`mise`](https://mise.jdx.dev/) for developer toolchain management and [`prek`](https://github.com/jdx/prek) for pre-commit validation.
+This repository utilizes [`mise`](https://mise.jdx.dev/) for developer toolchain management and [`hk`](https://github.com/jdx/hk) for pre-commit validation.
 
 ### Setup
 
@@ -157,8 +157,8 @@ Run tasks with `mise run <task>`:
 
 | Task | Description | Command |
 |---|---|---|
-| `install` | Install tools and set up pre-commit hooks | `prek install` |
-| `prek` | Run all linters and pre-commit hooks | `prek run --all-files` |
+| `install` | Install tools and set up pre-commit hooks | `hk install` |
+| `hk` | Run all linters and pre-commit hooks | `hk run --all` |
 | `compose` | Start the local Docker Compose stack | `docker compose up -d --build` |
 | `down` | Stop the local Docker Compose stack | `docker compose down` |
 | `build` | Build the container image locally with buildx | `docker buildx build ...` |
