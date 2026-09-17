@@ -2,15 +2,15 @@ mariadb:
   name: mariadb
   app: mariadb
   replicaCount: 1
-  resources: { limits: { cpu: 100m, memory: 200Mi } }
+  resources: {limits: {cpu: 100m, memory: 200Mi}}
   image: ghcr.io/joeckr/mariadb
   tag: latest
   pullPolicy: Always
   port: 3306
   db: mariadb
   user: mariadb
-  password: changeme
-  rootPassword: really_replaceme
+  password: changeme # betterleaks:allow
+  rootPassword: really_replaceme # betterleaks:allow
   storageAccessMode: ReadWriteOnce
   storageSize: 1Gi
   storageClass: ""

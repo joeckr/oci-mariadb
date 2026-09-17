@@ -1,19 +1,19 @@
 services:
-    mariadb:
-      container_name: mariadb
-      build:
-        context: .
-        dockerfile: Dockerfile
-      ports:
-        - "3306:3306"
-      environment:
-        MARIADB_USER: mariadb
-        MARIADB_PASSWORD: replaceme
-        MARIADB_ROOT_PASSWORD: really_replaceme
-        MARIADB_DATABASE: mariadb
-      volumes:
-        - mdbdata:/var/lib/mysql
-        - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:z
+  mariadb:
+    container_name: mariadb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_USER: mariadb
+      MARIADB_PASSWORD: replaceme # betterleaks:allow
+      MARIADB_ROOT_PASSWORD: really_replaceme # betterleaks:allow
+      MARIADB_DATABASE: mariadb
+    volumes:
+      - mdbdata:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:z
 
 volumes:
   mdbdata:
