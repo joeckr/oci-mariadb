@@ -15,7 +15,7 @@ A hardened, rootless MariaDB container image and Helm chart designed for **Red H
 - **Multi-Version Matrix Builds**: Automated GitHub Actions matrix builds producing multi-arch (`linux/amd64`, `linux/arm64`) images for multiple major MariaDB releases defined in [`versions.json`](file:///Users/josephking/Code/oci/oci-mariadb/versions.json).
 - **Production Helm Chart**: Fully configurable Helm chart under [`chart/`](file:///Users/josephking/Code/oci/oci-mariadb/chart) with persistent storage (PVC), custom environment variables, and schema initialization support.
 - **Schema Initialization**: Automatically bootstrap database schemas on first startup by mounting SQL scripts into `/docker-entrypoint-initdb.d/`.
-- **Developer Experience**: Integrated with [`mise`](https://mise.jdx.dev/) and [`prek`](https://github.com/jdx/prek) for one-command environment setup, linting, security audits, and container orchestration.
+- **Developer Experience**: Integrated with [`mise`](https://mise.jdx.dev/) and [`hk`](https://github.com/jdx/hk) for one-command environment setup, linting, security audits, and container orchestration.
 
 ---
 
@@ -52,10 +52,6 @@ docker compose up -d --build
 Stop the stack:
 
 ```bash
-# Using mise
-mise run down
-
-# Or using docker compose directly
 docker compose down
 ```
 
@@ -92,8 +88,8 @@ The [`chart/`](file:///Users/josephking/Code/oci/oci-mariadb/chart) directory co
 helm upgrade --install mariadb ./chart \
   --namespace mariadb \
   --create-namespace \
-  --set mariadb.rootPassword="your-strong-root-password" \
-  --set mariadb.password="your-strong-user-password"
+  --set mariadb.rootPassword="<your-strong-root-password>" \
+  --set mariadb.password="<your-strong-user-password>"
 ```
 
 ### Chart Configuration
@@ -142,12 +138,12 @@ This image resolves this by:
 
 ## Development & Maintenance
 
-This repository utilizes [`mise`](https://mise.jdx.dev/) for developer toolchain management and [`prek`](https://github.com/jdx/prek) for pre-commit validation.
+This repository utilizes [`mise`](https://mise.jdx.dev/) for developer toolchain management and [`hk`](https://github.com/jdx/hk) for git hooks and linting.
 
 ### Setup
 
 ```bash
-# Install toolchain and pre-commit hooks
+# Install toolchain and set up git hooks
 mise run install
 ```
 
@@ -157,25 +153,32 @@ Run tasks with `mise run <task>`:
 
 | Task | Description | Command |
 |---|---|---|
-| `install` | Install tools and set up pre-commit hooks | `prek install` |
-| `prek` | Run all linters and pre-commit hooks | `prek run --all-files` |
+| `install` | Install tools and set up git hooks | `hk install --mise` |
+| `hk` (or `check`) | Run all linters and hook checks | `hk check --all` |
 | `compose` | Start the local Docker Compose stack | `docker compose up -d --build` |
-| `down` | Stop the local Docker Compose stack | `docker compose down` |
 | `build` | Build the container image locally with buildx | `docker buildx build ...` |
 | `trivy-fs` | Scan the repository filesystem for security vulnerabilities | `trivy fs .` |
 | `trivy-image` | Scan the built container image with Trivy | `trivy image ...` |
 
 ### Linters & Quality Checks
 
-The CI pipeline runs automated checks on every push and PR:
+The CI pipeline and `hk` run automated checks on every push and PR:
 - **Hadolint**: Dockerfile linting and best practices (`DL3066` numeric user ID compliance).
 - **Actionlint & Zizmor**: GitHub Actions workflow syntax and security audits.
 - **Shellcheck**: Shell script analysis.
+- **Yamllint**: YAML syntax and formatting validation.
+- **Tombi**: TOML linting and formatting.
 - **Helm Lint**: Helm chart validation.
-- **Gitleaks**: Secrets detection.
+- **Betterleaks**: Secrets detection.
 
 ---
 
+## Support
+
+If you find this project useful, consider supporting my work on [Ko-fi](https://ko-fi.com/joeckr):
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/joeckr)
+
 ## License
 
-This project is licensed under the [MIT License](file:///Users/josephking/Code/oci/oci-mariadb/LICENSE).
+Please refer to the `LICENSE` file for details.
