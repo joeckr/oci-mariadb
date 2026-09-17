@@ -2,15 +2,15 @@ name: Security Audit
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  gitleaks:
+  betterleaks:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/gitleaks.yml@48916bb3c57520fe2d7b179ac228b29b0d1c83cb # v1.3.0
+    uses: joeckr/ci-templates/.github/workflows/betterleaks.yml@6ef7c291b7ec4a74e632d7adfef333ff4c90cb79  # v1.12.0
   zizmor:
     permissions:
       contents: read
