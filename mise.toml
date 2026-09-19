@@ -21,7 +21,7 @@ hk install --mise
 [tasks.build]
 description = "Build the application"
 run = """
-podman buildx build --platform linux/amd64 -t ghcr.io/joeckr/oci-modified:test . --load
+podman buildx build --platform linux/amd64 -t ghcr.io/joeckr/mariadb:test . --load
 """
 
 [tasks.compose]
@@ -93,5 +93,5 @@ trivy fs .
 description = "Run Trivy on the Podman image"
 depends = ["build"]
 run = """
-trivy image ghcr.io/joeckr/oci-modified:test
+trivy image ghcr.io/joeckr/mariadb:test
 """
