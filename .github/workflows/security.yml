@@ -10,9 +10,9 @@ jobs:
   betterleaks:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/betterleaks.yml@6ef7c291b7ec4a74e632d7adfef333ff4c90cb79  # v1.12.0
+    uses: joeckr/ci-templates/.github/workflows/betterleaks.yml@578d91388a3f7862fb51c4d2e685586a4d7d1daf  # v1.20.3
   zizmor:
     permissions:
       contents: read
       security-events: write # required to upload SARIF results to GitHub Advanced Security
-    uses: joeckr/ci-templates/.github/workflows/zizmor.yml@c08d40f0bf0cd80de6b2f1fa2f018f944265b807 # v1.8.0
+    uses: joeckr/ci-templates/.github/workflows/zizmor.yml@578d91388a3f7862fb51c4d2e685586a4d7d1daf  # v1.20.3
