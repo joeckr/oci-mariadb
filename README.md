@@ -37,7 +37,7 @@ Images are published to GitHub Container Registry (GHCR) under `ghcr.io/joeckr/m
 
 ### Local Development (Docker Compose)
 
-The repository includes a [`docker-compose.yml`](file:///Users/josephking/Code/oci/oci-mariadb/docker-compose.yml) configured with persistent volume storage and automatic schema seeding via [`schema.sql`](file:///Users/josephking/Code/oci/oci-mariadb/schema.sql).
+The repository includes a [`compose.yml`](file:///Users/josephking/Code/oci/oci-mariadb/compose.yml) configured with persistent volume storage and automatic schema seeding via [`schema.sql`](file:///Users/josephking/Code/oci/oci-mariadb/schema.sql).
 
 Start the stack:
 
@@ -118,9 +118,9 @@ Key configuration parameters in [`chart/values.yaml`](file:///Users/josephking/C
 
 MariaDB executes scripts found in `/docker-entrypoint-initdb.d/` on first startup when the database directory is empty.
 
-- **Local Development:** [`docker-compose.yml`](file:///Users/josephking/Code/oci/oci-mariadb/docker-compose.yml) binds [`schema.sql`](file:///Users/josephking/Code/oci/oci-mariadb/schema.sql) directly into `/docker-entrypoint-initdb.d/schema.sql:z`.
+- **Local Development:** [`compose.yml`](file:///Users/josephking/Code/oci/oci-mariadb/compose.yml) binds [`schema.sql`](file:///Users/josephking/Code/oci/oci-mariadb/schema.sql) directly into `/docker-entrypoint-initdb.d/schema.sql:z`.
 - **Helm Chart:** When `initSchema.enabled: true`, the chart creates a ConfigMap from [`chart/config/schema.sql`](file:///Users/josephking/Code/oci/oci-mariadb/chart/config/schema.sql) and mounts it into the container.
-- If you do not require initialization schemas, disable it via `--set initSchema.enabled=false` or remove the volume mount from `docker-compose.yml`.
+- If you do not require initialization schemas, disable it via `--set initSchema.enabled=false` or remove the volume mount from `compose.yml`.
 
 ---
 
