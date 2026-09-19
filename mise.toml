@@ -21,13 +21,39 @@ hk install --mise
 [tasks.build]
 description = "Build the application"
 run = """
-docker buildx build --platform linux/amd64 -t ghcr.io/joeckr/oci-modified:test . --load
+podman buildx build --platform linux/amd64 -t ghcr.io/joeckr/oci-modified:test . --load
 """
 
 [tasks.compose]
-description = "Run Docker Compose"
+description = "Run Podman Compose"
 run = """
-docker compose up -d --build
+podman compose up -d --build
+"""
+
+[tasks.play]
+description = "Run Podman Play for local helm chart testing"
+depends = ["helm-template"]
+run = """
+podman play kube rendered.yaml
+"""
+
+[tasks.down]
+description = "Stop Podman Compose"
+run = """
+podman compose down
+"""
+
+[tasks.downplay]
+description = "Run Podman Play for local helm chart testing"
+depends = ["helm-dep"]
+run = """
+podman play kube rendered.yaml --down
+"""
+
+[tasks.logs]
+description = "View Podman Compose logs"
+run = """
+podman compose logs -f
 """
 
 [tasks.hk]
@@ -37,6 +63,26 @@ run = """
 hk check --all
 """
 
+[tasks.helm-lint]
+description = "Lint Helm chart"
+depends = ["helm-dep"]
+run = """
+helm lint chart/
+"""
+
+[tasks.helm-template]
+description = "Render Helm chart templates"
+depends = ["helm-dep"]
+run = """
+helm template test chart/ > rendered.yaml
+"""
+
+[tasks.helm-dep]
+description = "Build Helm chart dependencies"
+run = """
+helm dependency build chart/
+"""
+
 [tasks.trivy-fs]
 description = "Run Trivy on the file system"
 run = """
@@ -44,7 +90,7 @@ trivy fs .
 """
 
 [tasks.trivy-image]
-description = "Run Trivy on the Docker image"
+description = "Run Trivy on the Podman image"
 depends = ["build"]
 run = """
 trivy image ghcr.io/joeckr/oci-modified:test
