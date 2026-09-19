@@ -1,0 +1,18 @@
+services:
+  mariadb:
+    container_name: mariadb-upstream
+    image: mariadb:12-ubi
+    ports:
+      - "3307:3306"
+    environment:
+      MARIADB_USER: mariadb
+      MARIADB_PASSWORD: replaceme # betterleaks:allow
+      MARIADB_ROOT_PASSWORD: really_replaceme # betterleaks:allow
+      MARIADB_DATABASE: mariadb
+    volumes:
+      - up-mdbdata:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:z
+
+volumes:
+  up-mdbdata:
+    driver: local
