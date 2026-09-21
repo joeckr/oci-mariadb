@@ -30,6 +30,12 @@ run = """
 podman compose up -d --build
 """
 
+[tasks.compose-up]
+description = "Run Podman Compose with upstream image"
+run = """
+podman compose -f compose.upstream.yml up -d
+"""
+
 [tasks.play]
 description = "Run Podman Play for local helm chart testing"
 depends = ["helm-template"]
@@ -41,6 +47,12 @@ podman play kube rendered.yaml
 description = "Stop Podman Compose"
 run = """
 podman compose down
+"""
+
+[tasks.down-up]
+description = "Stop Podman Compose for upstream image"
+run = """
+podman compose -f compose.upstream.yml down
 """
 
 [tasks.downplay]
@@ -75,6 +87,19 @@ description = "Render Helm chart templates"
 depends = ["helm-dep"]
 run = """
 helm template test chart/ > rendered.yaml
+"""
+
+[tasks.helm-install]
+description = "Install Helm chart"
+depends = ["helm-dep"]
+run = """
+helm install test chart/
+"""
+
+[tasks.helm-uninstall]
+description = "Uninstall Helm chart"
+run = """
+helm uninstall test
 """
 
 [tasks.helm-dep]
