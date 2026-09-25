@@ -4,7 +4,7 @@ mariadb:
   replicaCount: 1
   resources: {limits: {cpu: 100m, memory: 200Mi}}
   image: ghcr.io/joeckr/mariadb
-  tag: latest
+  tag: 12
   pullPolicy: Always
   port: 3306
   db: mariadb
@@ -14,6 +14,8 @@ mariadb:
   storageAccessMode: ReadWriteOnce
   storageSize: 1Gi
   storageClass: ""
+  openshift: false
+  fsGroup: 1031
 
 initSchema:
   enabled: true
