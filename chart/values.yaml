@@ -14,8 +14,16 @@ mariadb:
   storageAccessMode: ReadWriteOnce
   storageSize: 1Gi
   storageClass: ""
-  openshift: false
-  fsGroup: 1031
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+    fsGroup: 1031 # take this out if deploying to OpenShift
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
 
 initSchema:
   enabled: true
