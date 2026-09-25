@@ -30,34 +30,22 @@ run = """
 podman compose up -d --build
 """
 
-[tasks.compose-up]
-description = "Run Podman Compose with upstream image"
-run = """
-podman compose -f compose.upstream.yml up -d
-"""
-
-[tasks.play]
-description = "Run Podman Play for local helm chart testing"
-depends = ["helm-template"]
-run = """
-podman play kube rendered.yaml
-"""
-
 [tasks.down]
 description = "Stop Podman Compose"
 run = """
 podman compose down
 """
 
-[tasks.down-up]
-description = "Stop Podman Compose for upstream image"
+[tasks.play]
+description = "Run Podman Play for local helm chart testing"
+depends = ["helm-t"]
 run = """
-podman compose -f compose.upstream.yml down
+podman play kube rendered.yaml
 """
 
-[tasks.downplay]
+[tasks.play-d]
 description = "Run Podman Play for local helm chart testing"
-depends = ["helm-dep"]
+depends = ["helm-d"]
 run = """
 podman play kube rendered.yaml --down
 """
@@ -75,34 +63,34 @@ run = """
 hk check --all
 """
 
-[tasks.helm-lint]
+[tasks.helm-l]
 description = "Lint Helm chart"
-depends = ["helm-dep"]
+depends = ["helm-d"]
 run = """
 helm lint chart/
 """
 
-[tasks.helm-template]
+[tasks.helm-t]
 description = "Render Helm chart templates"
-depends = ["helm-dep"]
+depends = ["helm-d"]
 run = """
 helm template test chart/ > rendered.yaml
 """
 
-[tasks.helm-install]
+[tasks.helm-i]
 description = "Install Helm chart"
-depends = ["helm-dep"]
+depends = ["helm-d"]
 run = """
 helm install test chart/
 """
 
-[tasks.helm-uninstall]
+[tasks.helm-u]
 description = "Uninstall Helm chart"
 run = """
 helm uninstall test
 """
 
-[tasks.helm-dep]
+[tasks.helm-d]
 description = "Build Helm chart dependencies"
 run = """
 helm dependency build chart/
@@ -114,7 +102,7 @@ run = """
 trivy fs .
 """
 
-[tasks.trivy-image]
+[tasks.trivy-i]
 description = "Run Trivy on the Podman image"
 depends = ["build"]
 run = """

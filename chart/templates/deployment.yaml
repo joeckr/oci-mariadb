@@ -14,15 +14,10 @@ spec:
       labels:
         app: {{ .Values.mariadb.app }}
     spec:
+      {{- with .Values.mariadb.podSecurityContext }}
       securityContext:
-        runAsNonRoot: true
-        seccompProfile:
-          type: RuntimeDefault
-        {{- if and (not .Values.mariadb.openshift) (not (.Capabilities.APIVersions.Has "security.openshift.io/v1")) }}
-        {{- if .Values.mariadb.fsGroup }}
-        fsGroup: {{ .Values.mariadb.fsGroup }}
-        {{- end }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       automountServiceAccountToken: false
       volumes:
         - name: mariadb-storage
@@ -35,11 +30,10 @@ spec:
         {{- end }}
       containers:
         - name: {{ .Values.mariadb.name }}
+          {{- with .Values.mariadb.securityContext }}
           securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.mariadb.image }}:{{ .Values.mariadb.tag }}"
           imagePullPolicy: {{ .Values.mariadb.pullPolicy }}
           ports:
