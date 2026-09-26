@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.mariadb.name }}
+  name: {{ .Values.app.name }}
   labels:
-    app: {{ .Values.mariadb.app }}
+    app: {{ .Values.app.name }}
 spec:
-  replicas: {{ .Values.mariadb.replicaCount }}
+  replicas: {{ .Values.app.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.mariadb.app }}
+      app: {{ .Values.app.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.mariadb.app }}
+        app: {{ .Values.app.name }}
     spec:
-      {{- with .Values.mariadb.podSecurityContext }}
+      {{- with .Values.app.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -29,25 +29,25 @@ spec:
             name: mariadb-schema
         {{- end }}
       containers:
-        - name: {{ .Values.mariadb.name }}
-          {{- with .Values.mariadb.securityContext }}
+        - name: {{ .Values.app.name }}
+          {{- with .Values.app.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.mariadb.image }}:{{ .Values.mariadb.tag }}"
-          imagePullPolicy: {{ .Values.mariadb.pullPolicy }}
+          image: "{{ .Values.app.image }}:{{ .Values.app.tag }}"
+          imagePullPolicy: {{ .Values.app.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.mariadb.port }}
-              name: {{ .Values.mariadb.name }}
+            - containerPort: {{ .Values.app.port }}
+              name: {{ .Values.app.name }}
           env:
             - name: MARIADB_DATABASE
-              value: {{ .Values.mariadb.db | quote }}
+              value: {{ .Values.app.db | quote }}
             - name: MARIADB_USER
-              value: {{ .Values.mariadb.user | quote }}
+              value: {{ .Values.app.user | quote }}
             - name: MARIADB_PASSWORD
-              value: {{ .Values.mariadb.password | quote }}
+              value: {{ .Values.app.password | quote }}
             - name: MARIADB_ROOT_PASSWORD
-              value: {{ .Values.mariadb.rootPassword | quote }}
+              value: {{ .Values.app.rootPassword | quote }}
           volumeMounts:
             - name: mariadb-storage
               mountPath: /var/lib/mysql
@@ -56,3 +56,7 @@ spec:
               mountPath: /docker-entrypoint-initdb.d/schema.sql
               subPath: schema.sql
             {{- end }}
+          {{- with .Values.app.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}

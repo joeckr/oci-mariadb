@@ -189,7 +189,7 @@ mise run play-d
    helm dependency build chart/
    helm template test chart/ > rendered.yaml
    ```
-2. Executes `podman play kube rendered.yaml`, which:
+2. Executes `podman play kube rendered.yaml --publish-all`, which:
    - Reads the multi-document Kubernetes YAML (`ConfigMap`, `PersistentVolumeClaim`, `Service`, `Deployment`).
    - Creates a local Podman pod matching the Kubernetes `Deployment` specification.
    - Applies the pod's `securityContext` (`runAsNonRoot: true`, capabilities drop, seccomp profile).
@@ -368,7 +368,7 @@ Run tasks with `mise run <task>`:
 | `compose` | Start local container stack with Podman Compose | `podman compose up -d --build` |
 | `down` | Stop local Podman Compose stack | `podman compose down` |
 | `logs` | View Podman Compose logs | `podman compose logs -f` |
-| `play` | Test Helm chart manifests locally with Podman Play Kube | `podman play kube rendered.yaml` |
+| `play` | Test Helm chart manifests locally with Podman Play Kube | `podman play kube rendered.yaml --publish-all` |
 | `play-d` | Stop and remove Podman Play Kube pods | `podman play kube rendered.yaml --down` |
 | `helm-d` | Build Helm chart dependencies | `helm dependency build chart/` |
 | `helm-l` | Lint Helm chart | `helm lint chart/` |

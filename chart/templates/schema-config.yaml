@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: mariadb-schema
   labels:
-    app: {{ .Values.app }}
+    app: {{ .Values.app.name }}
 data:
   schema.sql: |
     {{ .Files.Get (print "config/schema.sql") | nindent 4 }}

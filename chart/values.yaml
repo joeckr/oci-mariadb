@@ -1,8 +1,10 @@
-mariadb:
+app:
   name: mariadb
-  app: mariadb
   replicaCount: 1
-  resources: {limits: {cpu: 100m, memory: 200Mi}}
+  resources:
+    limits:
+      cpu: 100m
+      memory: 200Mi
   image: ghcr.io/joeckr/mariadb
   tag: 12
   pullPolicy: Always
