@@ -3,13 +3,13 @@ kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pvc
   labels:
-    app: {{ .Values.mariadb.app }}
+    app: {{ .Values.app.name }}
 spec:
   accessModes:
-    - {{ .Values.mariadb.storageAccessMode }}
+    - {{ .Values.app.storageAccessMode }}
   resources:
     requests:
-      storage: {{ .Values.mariadb.storageSize }}
-  {{- if .Values.mariadb.storageClass }}
-  storageClassName: {{ .Values.mariadb.storageClass | quote }}
+      storage: {{ .Values.app.storageSize }}
+  {{- if .Values.app.storageClass }}
+  storageClassName: {{ .Values.app.storageClass | quote }}
   {{- end }}
