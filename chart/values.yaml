@@ -20,7 +20,7 @@ app:
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
-    fsGroup: 1031 # take this out if deploying to OpenShift
+    fsGroup: 1031
   securityContext:
     allowPrivilegeEscalation: false
     capabilities:
