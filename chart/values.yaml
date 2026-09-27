@@ -1,8 +1,10 @@
-mariadb:
+app:
   name: mariadb
-  app: mariadb
   replicaCount: 1
-  resources: {limits: {cpu: 100m, memory: 200Mi}}
+  resources:
+    limits:
+      cpu: 100m
+      memory: 200Mi
   image: ghcr.io/joeckr/mariadb
   tag: 12
   pullPolicy: Always
@@ -18,7 +20,7 @@ mariadb:
     runAsNonRoot: true
     seccompProfile:
       type: RuntimeDefault
-    fsGroup: 1031 # take this out if deploying to OpenShift
+    fsGroup: 1031
   securityContext:
     allowPrivilegeEscalation: false
     capabilities:
