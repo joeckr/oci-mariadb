@@ -10,19 +10,19 @@ jobs:
   actionlint:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/actionlint.yml@db877801751041f06adcca7e4b9b3a1973ac563e  # v1.21.0
+    uses: joeckr/ci-templates/.github/workflows/actionlint.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
   commitlint:
     permissions:
       contents: read
       pull-requests: read  # required to fetch PR metadata
-    uses: joeckr/ci-templates/.github/workflows/commitlint.yml@db877801751041f06adcca7e4b9b3a1973ac563e  # v1.21.0
+    uses: joeckr/ci-templates/.github/workflows/commitlint.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
   hadolint:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/hadolint.yml@db877801751041f06adcca7e4b9b3a1973ac563e  # v1.21.0
+    uses: joeckr/ci-templates/.github/workflows/hadolint.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
     with:
       dockerfile: 'Dockerfile'
   shellcheck:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/shellcheck.yml@db877801751041f06adcca7e4b9b3a1973ac563e  # v1.21.0
+    uses: joeckr/ci-templates/.github/workflows/shellcheck.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
