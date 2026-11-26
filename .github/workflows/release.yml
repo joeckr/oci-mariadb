@@ -9,7 +9,7 @@ jobs:
   release:
     permissions:
       contents: write
-    uses: joeckr/ci-templates/.github/workflows/semantic.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+    uses: joeckr/ci-templates/.github/workflows/semantic.yml@697db8faa5f8d3fa5ec15ef35674aa1e855d3a33  # v1.23.1
     with:
       dependabot-semver: true
 
@@ -19,7 +19,9 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: joeckr/ci-templates/.github/workflows/build-oci.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+      id-token: write
+      attestations: write
+    uses: joeckr/ci-templates/.github/workflows/build-oci.yml@697db8faa5f8d3fa5ec15ef35674aa1e855d3a33  # v1.23.1
     with:
       image: 'mariadb'
       version: ${{ needs.release.outputs.version }}
@@ -30,6 +32,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: joeckr/ci-templates/.github/workflows/push-helm-ghcr.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+    uses: joeckr/ci-templates/.github/workflows/push-helm-ghcr.yml@697db8faa5f8d3fa5ec15ef35674aa1e855d3a33  # v1.23.1
     with:
       charts-dir: 'chart'

@@ -1,0 +1,26 @@
+name: Cleanup GHCR
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Preview versions to delete without deleting them'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    permissions:
+      contents: read
+      packages: write
+    uses: joeckr/ci-templates/.github/workflows/cleanup-ghcr.yml@697db8faa5f8d3fa5ec15ef35674aa1e855d3a33  # v1.23.1
+    with:
+      package: 'mariadb'
+      keep-untagged-days: 14
+      dry-run: ${{ inputs.dry-run || false }}
