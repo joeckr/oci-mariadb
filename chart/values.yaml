@@ -12,8 +12,7 @@ app:
   port: 3306
   db: mariadb
   user: mariadb
-  password: changeme # betterleaks:allow
-  rootPassword: really_replaceme # betterleaks:allow
+  podAnnotations: {}
   storageAccessMode: ReadWriteOnce
   storageSize: 1Gi
   storageClass: ""
@@ -30,3 +29,14 @@ app:
 
 initSchema:
   enabled: true
+
+secret:
+  # Set create: false or provide existingSecret when managing secrets externally (e.g. External Secrets Operator).
+  create: true
+  existingSecret: ""
+  keys:
+    password: "MARIADB_PASSWORD"  # betterleaks:allow
+    rootPassword: "MARIADB_ROOT_PASSWORD"  # betterleaks:allow
+  data:
+    MARIADB_PASSWORD: "changeme"  # betterleaks:allow
+    MARIADB_ROOT_PASSWORD: "really_replaceme"  # betterleaks:allow

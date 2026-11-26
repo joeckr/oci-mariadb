@@ -13,6 +13,15 @@ spec:
     metadata:
       labels:
         app: {{ .Values.app.name }}
+      {{- if or (and .Values.secret.create (not .Values.secret.existingSecret)) .Values.app.podAnnotations }}
+      annotations:
+        {{- if and .Values.secret.create (not .Values.secret.existingSecret) }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
+        {{- with .Values.app.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- end }}
     spec:
       {{- with .Values.app.podSecurityContext }}
       securityContext:
@@ -45,9 +54,15 @@ spec:
             - name: MARIADB_USER
               value: {{ .Values.app.user | quote }}
             - name: MARIADB_PASSWORD
-              value: {{ .Values.app.password | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mariadb.secretName" . }}
+                  key: {{ .Values.secret.keys.password }}
             - name: MARIADB_ROOT_PASSWORD
-              value: {{ .Values.app.rootPassword | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mariadb.secretName" . }}
+                  key: {{ .Values.secret.keys.rootPassword }}
           volumeMounts:
             - name: mariadb-storage
               mountPath: /var/lib/mysql
