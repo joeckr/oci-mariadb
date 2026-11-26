@@ -8,7 +8,7 @@ app:
   image: ghcr.io/joeckr/mariadb
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   port: 3306
   db: mariadb
   user: mariadb
