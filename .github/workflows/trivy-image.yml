@@ -14,6 +14,6 @@ jobs:
       contents: read
       packages: read
       security-events: write
-    uses: joeckr/ci-templates/.github/workflows/trivy-image.yml@6cd1b691f0f8aa3e52366007220d6b007d685275  # v1.24.0
+    uses: joeckr/ci-templates/.github/workflows/trivy-image.yml@1c6283577ea8eabcda150cb4f2a9749b3c610b1d  # v1.24.1
     with:
       image-ref: 'ghcr.io/joeckr/mariadb:latest'
