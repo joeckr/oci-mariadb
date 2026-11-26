@@ -1,6 +1,4 @@
-ARG VERSION=12
-ARG REGISTRY=docker.io/library
-FROM $REGISTRY/mariadb:$VERSION-ubi
+FROM docker.io/library/mariadb:12.3-ubi
 
 USER 0
 

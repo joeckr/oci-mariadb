@@ -12,24 +12,16 @@ A hardened, rootless MariaDB container image and Helm chart designed for rootles
 
 - **Rootless & Arbitrary UID Ready**: Built in compliance with rootless and hardened container standards. Directories are assigned group ownership `gid=0` (`root`) with `g+rwX` permissions, allowing any arbitrary runtime UID to read and write database files.
 - **Red Hat UBI Base**: Built upon the official upstream `mariadb:<version>-ubi` Red Hat Universal Base Images for enterprise security, stability, and consistent patching.
-- **Multi-Version Matrix Builds**: Automated GitHub Actions matrix builds producing multi-arch (`linux/amd64`, `linux/arm64`) images for multiple major MariaDB releases defined in [`versions.json`](versions.json).
+- **Semantic Release Builds**: Automated GitHub Actions builds producing multi-arch (`linux/amd64`, `linux/arm64`) images tagged with the semantic release version and `latest`.
 - **Production Helm Chart**: Fully configurable Helm chart under [`chart/`](chart/) with persistent storage (PVC), custom environment variables, and schema initialization support.
 - **Schema Initialization**: Automatically bootstrap database schemas on first startup by mounting SQL scripts into `/docker-entrypoint-initdb.d/`.
 - **Developer Experience**: Integrated with [`mise`](https://mise.jdx.dev/) and [`hk`](https://github.com/jdx/hk) for one-command environment setup, linting, security audits, and container orchestration.
 
 ---
 
-## Supported Versions
+## Container Images
 
-Images are published to GitHub Container Registry (GHCR) under `ghcr.io/joeckr/mariadb`. Supported versions are configured via [`versions.json`](versions.json):
-
-| Major Version | Upstream Version | Image Tags | Status |
-|---|---|---|---|
-| **12** | `12.3` | `12`, `12.3`, `latest` | Active (Default) |
-| **11** | `11.8` | `11`, `11.8` | Supported |
-| **10** | `10.11` | `10`, `10.11` | Supported |
-
-> Need an unlisted version? Add it to [`versions.json`](versions.json) and open a pull request!
+Images are built from the upstream `mariadb:12.3-ubi` base image defined in [`Dockerfile`](Dockerfile) and published to GitHub Container Registry (GHCR) under `ghcr.io/joeckr/mariadb` with the semantic release version tag and `latest`.
 
 ---
 

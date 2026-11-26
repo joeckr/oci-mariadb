@@ -34,7 +34,7 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.app.image }}:{{ .Values.app.tag }}"
+          image: "{{ .Values.app.image }}:{{ .Values.app.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.app.pullPolicy }}
           ports:
             - containerPort: {{ .Values.app.port }}
