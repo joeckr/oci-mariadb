@@ -1,0 +1,19 @@
+name: Image CVE Scan
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  trivy-image:
+    permissions:
+      contents: read
+      packages: read
+      security-events: write
+    uses: joeckr/ci-templates/.github/workflows/trivy-image.yml@6cd1b691f0f8aa3e52366007220d6b007d685275  # v1.24.0
+    with:
+      image-ref: 'ghcr.io/joeckr/mariadb:latest'
