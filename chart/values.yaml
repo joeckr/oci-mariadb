@@ -6,7 +6,8 @@ app:
       cpu: 100m
       memory: 200Mi
   image: ghcr.io/joeckr/mariadb
-  tag: 12
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: Always
   port: 3306
   db: mariadb

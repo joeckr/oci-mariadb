@@ -5,15 +5,6 @@ on:
     branches: [main]
 
 jobs:
-  matrix-build:
-    permissions:
-      contents: read
-      packages: write
-      security-events: write
-    uses: joeckr/ci-templates/.github/workflows/build-oci-modified.yml@578d91388a3f7862fb51c4d2e685586a4d7d1daf  # v1.20.3
-    with:
-      image: "mariadb"
-      dry-run: true
   helm:
     permissions:
       contents: read
@@ -27,4 +18,13 @@ jobs:
       contents: write
     uses: joeckr/ci-templates/.github/workflows/semantic.yml@578d91388a3f7862fb51c4d2e685586a4d7d1daf  # v1.20.3
     with:
+      dry-run: true
+  build:
+    permissions:
+      contents: read
+      packages: write
+    uses: joeckr/ci-templates/.github/workflows/build-oci.yml@578d91388a3f7862fb51c4d2e685586a4d7d1daf  # v1.20.3
+    with:
+      image: 'mariadb'
+      version: 'test'
       dry-run: true
