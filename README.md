@@ -21,7 +21,7 @@ A hardened, rootless MariaDB container image and Helm chart designed for rootles
 
 ## Container Images
 
-Images are built from the upstream `mariadb:12-ubi` base image defined in [`Dockerfile`](Dockerfile) and published to GitHub Container Registry (GHCR) under `ghcr.io/joeckr/mariadb` with the semantic release version tag and `latest`.
+Images are built from the upstream `mariadb:12.3-ubi` base image defined in [`Dockerfile`](Dockerfile) and published to GitHub Container Registry (GHCR) under `ghcr.io/joeckr/mariadb` with the semantic release version tag and `latest`.
 
 ---
 
