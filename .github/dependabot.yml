@@ -6,6 +6,10 @@ updates:
       interval: "weekly"
     cooldown:
       default-days: 7
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
     commit-message:
       prefix: "fix"
       include: "scope"
@@ -15,6 +19,10 @@ updates:
       interval: "weekly"
     cooldown:
       default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - "*"
     commit-message:
       prefix: "ci"
       include: "scope"
