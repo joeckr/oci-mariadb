@@ -1,4 +1,4 @@
-FROM docker.io/library/mariadb:12.3-ubi
+FROM docker.io/library/mariadb:13.0-ubi
 
 USER 0
 
