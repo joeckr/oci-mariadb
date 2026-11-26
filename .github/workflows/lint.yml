@@ -6,23 +6,27 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   actionlint:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/actionlint.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+    uses: joeckr/ci-templates/.github/workflows/actionlint.yml@1c6283577ea8eabcda150cb4f2a9749b3c610b1d  # v1.24.1
   commitlint:
     permissions:
       contents: read
       pull-requests: read  # required to fetch PR metadata
-    uses: joeckr/ci-templates/.github/workflows/commitlint.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+    uses: joeckr/ci-templates/.github/workflows/commitlint.yml@1c6283577ea8eabcda150cb4f2a9749b3c610b1d  # v1.24.1
   hadolint:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/hadolint.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+    uses: joeckr/ci-templates/.github/workflows/hadolint.yml@1c6283577ea8eabcda150cb4f2a9749b3c610b1d  # v1.24.1
     with:
       dockerfile: 'Dockerfile'
   shellcheck:
     permissions:
       contents: read
-    uses: joeckr/ci-templates/.github/workflows/shellcheck.yml@72b33f74ac8adf0635cd94db83a71c731e836eab  # v1.22.0
+    uses: joeckr/ci-templates/.github/workflows/shellcheck.yml@1c6283577ea8eabcda150cb4f2a9749b3c610b1d  # v1.24.1
